@@ -5,16 +5,19 @@ from django.contrib import auth
 def signup(request):
 	if request.method =='POST':
 		# User has info and wants an account now!
-		if request.POST['password1'] == request.POST['password2']:
-			try:
-				user = User.objects.get(username=request.POST['username'])
-				return render(request, 'accounts/signup.html', {'error':'Username has already been token'})
-			except User.DoesNotExist:
-				user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
-				auth.login(request, user)
-				return redirect('home')
+		if request.POST['username'] and request.POST['password1'] and request.POST['password2']:
+			if request.POST['password1'] == request.POST['password2']:
+				try:
+					user = User.objects.get(username=request.POST['username'])
+					return render(request, 'accounts/signup.html', {'error':'Username has already been token'})
+				except User.DoesNotExist:
+					user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
+					auth.login(request, user)
+					return redirect('home')
+			else:
+				return render(request, 'accounts/signup.html', {'error':'Passowrd wrong'})
 		else:
-			return render(request, 'accounts/signup.html', {'error':'Passowrd wrong'})
+			return render(request, 'accounts/signup.html', {'error':'No username or password'})
 	else:
 		# User wants to enter info
 		return render(request, 'accounts/signup.html')

@@ -3,12 +3,13 @@
 {% block content %}
 
 {% if error %}
+<span class="oi oi-warning"></span>
 {{ error }}
 <br />
 <br />
 {% endif %}
 
-<h1>Login!</h1>
+<h3>Login</h3>
 
 <form method="POST" action="{% url 'login' %}">
 	{% csrf_token %}

@@ -3,12 +3,13 @@
 {% block content %}
 
 {% if error %}
+<span class="oi oi-warning"></span>
 {{ error }}
 <br />
 <br />
 {% endif %}
 
-<h1>Sign Up!</h1>
+<h3>Sign Up</h3>
 
 <form method="POST" action="{% url 'signup' %}">
 	{% csrf_token %}
@@ -29,6 +30,10 @@
 	<br />
 
 	<button class="btn btn-primary" type="sumbit" style="height:40px;width:100px" >Sign up!</button>
+
+	<br />
+	<br />
+	<p><span class="oi oi-person"></span> already have an account?<a href="{% url 'login' %}"> please login</a></p>
 
 </form>
 
